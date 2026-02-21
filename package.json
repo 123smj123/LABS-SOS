@@ -1,0 +1,18 @@
+{
+  "name": "clasenode",
+  "version": "0.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "Santiago Muñoz",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "body-parser": "^2.2.2",
+    "cool-ascii-faces": "^1.3.4",
+    "express": "^5.2.1"
+  }
+}
