@@ -1,55 +1,90 @@
-let cool = require("cool-ascii-faces");
-
-let express = require('express');
-let boyParser = require('body-parser');
-const app = express();
-
-let PORT = process.env.PORT || 3000;
-
-let BASE_URL_API = "/api/v1";
-
-app.use("/", express.static("./static"));
-app.use(boyParser.json());
-
-let contacts = [
-  {
-    name: "John Doe",
-    phone: "123456789"
-  },
-  {
-    name: "Jane Smith",
-    phone: "987654321"
-  }
-];
-
-app.get(`${BASE_URL_API}/contacts`, (req, res) => {
-  let jsonData = JSON.stringify(contacts, null, 2);
-  console.log(`Datos: ${jsonData}`);
-  res.send(jsonData);
-});
-
-app.post(`${BASE_URL_API}/contacts`, (req, res) => {
-  let newContat = req.body;
-  contacts.push(newContat);
-  console.log(`Nuevo contacto: ${JSON.stringify(newContat)}`);
-  res.send(201, "CREATED");
-});
-
-/*
-console.log(cool());
-
-//import express from 'express'
+let myDouble=2.2;
+myDouble = myDouble + 1;
 
 
-app.use("/", express.static("./static"));
+let var1 = 1;
+let var2 = "1";
 
-app.get('/faces', (req, res) => {
-  //res.send('Hello World');
-  res.send(`<html><body><h1> 
-        ${cool()}
-        +</h1></body></html>`)
-})
+/*if (var1 === var2)
+    console.log("var1 and var2 are equal");
+else
+    console.log("var1 and var2 are not equal");
 */
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-})
+function log(msg) {
+    console.log(msg);
+}
+
+function add(a, b) {
+    return a + b;
+}
+
+//log(add(1, 2));
+
+let otherNumbers = [1, 2, 3];
+//log(otherNumbers.length);   
+let numbers = new Array(1,2,3,4,5);
+numbers.push(6);
+numbers[0] = 0;
+
+//log(numbers);
+
+let things = [1, "two", [3, 4], 5.5];
+//log(things);
+
+/*for(let i = 0; i < things.length; i++) {
+    log(things[i]);
+}
+
+for (let thing of things) {
+    log(thing);
+}*/
+
+// ITERADORES
+
+numbers.forEach(log);
+
+numbers.forEach(function /*se puede nombrar o no a la funcion*/(num){
+    log(num + 1);
+});
+
+numbers.forEach(num => log(num + 1));
+
+let evenNumbers =numbers.filter(num => num % 2 === 0);
+
+log(evenNumbers);
+
+numbers.filter(num => num > 3).forEach(log);
+
+numbers
+    .map(num => num * 2)
+    .filter(num => num > 5)
+    .forEach(log);   
+
+let s = numbers.reduce((acc, num) => acc + num, 0);
+
+log(s);
+
+// OBJETOS
+
+let myObject = new Object();
+myObject.attribute = 1;
+
+let contact1 = new Object();
+contact1.name = "John Doe";
+contact1.phone = "1233456789";
+
+let contact2 = {
+    name: "Jane Doe",
+    phone: "9876543210",
+    children: {
+        name: "Jack Doe",
+        toys: ["car", "doll"]
+    }
+};
+
+log(contact1);
+log(contact2);
+
+contact1.print = function() {
+    log(this.name + ": " + this.phone);
+}
