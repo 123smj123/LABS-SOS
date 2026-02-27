@@ -32,7 +32,7 @@ app.post(`${BASE_URL_API}/contacts`, (req, res) => {
   let newContat = req.body;
   contacts.push(newContat);
   console.log(`Nuevo contacto: ${JSON.stringify(newContat)}`);
-  res.send(201, "CREATED");
+  res.status(201).send("CREATED");
 });
 
 /*
@@ -50,6 +50,7 @@ app.get('/faces', (req, res) => {
         +</h1></body></html>`)
 })
 */
+
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 })
