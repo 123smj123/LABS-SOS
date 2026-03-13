@@ -2,7 +2,7 @@
 import express from 'express';
 import cors from 'cors';
 import { loadBackend } from './src/back/index.js';
-import { handler } from '.src/front/build/handler.js';
+import { handler } from './src/front/build/handler.js';
 import dataStore from 'nedb';
 
 //let bodyParser = require('body-parser');
