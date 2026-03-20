@@ -30,6 +30,20 @@ function loadBackend(app) {
         });
     });
 
+    app.get(BASE_URL_API + "/contacts/:name", (req, res) => {
+        db.find({ name: req.params.name }, (err, contacts) => {
+            let jsonData = JSON.stringify(contacts.map((c) => {
+                delete c._id;
+                return c;
+            }), null, 2);
+            if (contacts.length === 0) {
+                return res.status(404).send("NOT FOUND");
+            }
+            console.log(`Datos: ${jsonData}`);
+            res.send(contacts[0]);
+        });
+    });
+
     app.post(`${BASE_URL_API}/contacts`, (req, res) => {
         let newContat = req.body;
         db.find({ name: newContat.name }, (err, existing) => {
@@ -43,6 +57,21 @@ function loadBackend(app) {
         });
         //contacts.push(newContat);
         //console.log(`Nuevo contacto: ${JSON.stringify(newContat, null, 2)}`);
+    });
+
+    app.put(`${BASE_URL_API}/contacts/:name`, (req, res) => {
+        let nameToUpdate = req.params.name;
+        let updatedContact = req.body;
+        db.update({ name: nameToUpdate }, updatedContact, {}, (err, numReplaced) => {
+            if (err) {
+                console.error(`Error al actualizar contacto: ${err}`);
+                return res.status(500).send("INTERNAL SERVER ERROR");
+            }
+            if (numReplaced === 0) {
+                return res.status(404).send("NOT FOUND");
+            }
+            res.status(200).send("UPDATED");
+        });
     });
 
     app.delete(`${BASE_URL_API}/contacts/:name`, (req, res) => {
