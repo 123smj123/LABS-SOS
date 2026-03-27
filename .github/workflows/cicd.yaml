@@ -11,11 +11,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
       - name: Install dependencies      
-        run: npm install
+        run: npm ci
       - name: Build UI      
         run: npm run build
       - name: Test
         run: npm test
+      - name: Run server for e2e tests
+        run: npm start &
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps
       - name: Run Playwright tests
