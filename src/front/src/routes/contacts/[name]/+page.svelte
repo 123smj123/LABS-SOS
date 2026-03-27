@@ -1,6 +1,6 @@
 <script>
     import { page } from '$app/state';
-    	import { dev } from '$app/environment';
+    import { dev } from '$app/environment';
 	import { onMount } from 'svelte';
 
 	let API = '/api/v1/contacts';
