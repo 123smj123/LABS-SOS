@@ -1,55 +1,23 @@
-let cool = require("cool-ascii-faces");
+//let express = require('express');
+import express from 'express';
+import cors from 'cors';
+import { loadBackend } from './src/back/index.js';
+import { handler } from './src/front/build/handler.js';
+import dataStore from 'nedb';
 
-let express = require('express');
-let boyParser = require('body-parser');
+//let bodyParser = require('body-parser');
+import bodyParser from 'body-parser';
+
 const app = express();
+app.use(cors());
 
 let PORT = process.env.PORT || 3000;
 
-let BASE_URL_API = "/api/v1";
+app.use(bodyParser.json());
 
-app.use("/", express.static("./static"));
-app.use(boyParser.json());
+loadBackend(app);
 
-let contacts = [
-  {
-    name: "John Doe",
-    phone: "123456789"
-  },
-  {
-    name: "Jane Smith",
-    phone: "987654321"
-  }
-];
-
-app.get(`${BASE_URL_API}/contacts`, (req, res) => {
-  let jsonData = JSON.stringify(contacts, null, 2);
-  console.log(`Datos: ${jsonData}`);
-  res.send(jsonData);
-});
-
-app.post(`${BASE_URL_API}/contacts`, (req, res) => {
-  let newContat = req.body;
-  contacts.push(newContat);
-  console.log(`Nuevo contacto: ${JSON.stringify(newContat)}`);
-  res.status(201).send("CREATED");
-});
-
-/*
-console.log(cool());
-
-//import express from 'express'
-
-
-app.use("/", express.static("./static"));
-
-app.get('/faces', (req, res) => {
-  //res.send('Hello World');
-  res.send(`<html><body><h1> 
-        ${cool()}
-        +</h1></body></html>`)
-})
-*/
+app.use(handler);
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
