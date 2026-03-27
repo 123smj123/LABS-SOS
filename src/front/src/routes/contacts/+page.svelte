@@ -1,3 +1,7 @@
+<svelte:head>
+	<title>Contact List</title>
+</svelte:head>
+
 <script>
 	import { dev } from '$app/environment';
 	import { onMount } from 'svelte';
@@ -79,7 +83,7 @@
 			<td><button onclick={handleAddContact}>Add</button></td>
 		</tr>
 		{#each contacts as contact (contact.name)}
-			<tr>
+			<tr data-testid="contactRow">
 				<td>{contact.name}</td>
 				<td>{contact.phone}</td>
 				<td>
