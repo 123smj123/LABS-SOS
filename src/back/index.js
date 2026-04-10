@@ -87,6 +87,19 @@ function loadBackend(app) {
             res.status(200).send("DELETED");
         });
     });
+
+    app.get(BASE_URL_API + "/data", (req, res) => {
+        console.log("Generating random data");
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random()*(max-min)+min);
+        }
+        let data = [];
+
+        for (let i = 0; i<10; i++)
+            data.push(getRandomInt(1, 10))
+        
+        res.json(data);
+    });
 }
 
 export { loadBackend };
